@@ -12,7 +12,7 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#009999";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -70,6 +70,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,	                    XK_u,      spawn,		   SHCMD("alacritty --class floatme -e fzmp") },
     { MODKEY,	                    XK_s,      spawn,		   SHCMD("mpc toggle") },
+    { MODKEY,	                    XK_m,      spawn,		   SHCMD("alacritty --class floatme -e neomutt") },
     { MODKEY,	                    XK_Left,   spawn,		   SHCMD("mpc prev") },
     { MODKEY,	                    XK_Right,  spawn,		   SHCMD("mpc next") },
     { MODKEY,	                    XK_x,      spawn,		   SHCMD("betterlockscreen --lock") },
@@ -86,7 +87,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_q,      killclient,     {0} },
  	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
