@@ -29,29 +29,32 @@ typedef struct {
     const char* name;
     const void* cmd;
 } Sp;
-const char* spcmd1[] = { "alacritty", "--class", "spterm", "-d", "120x34", NULL };
-const char* spcmd2[] = { "alacritty", "--class", "spcalc", "-f", "monospace:size=16", "-d", "50x20", "-e", "bc", "-lq", NULL };
+const char* spcmd1[] = { "alacritty", "--title", "spterm", "-d", "120", "68", NULL };
+const char* spcmd2[] = { "alacritty", "--title", "spbitw", "-d", "120", "34", NULL };
 static Sp scratchpads[] = {
     /* name          cmd  */
     { "spterm", spcmd1 },
-    { "spranger", spcmd2 },
+    { "spbitw", spcmd2 },
 };
 
 /* tagging */
 //static const char* tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char* tags[] = { "", "", "ﭮ", "4", "5", "6", "7", "8", "9" };
+static const char* tags[] = { "", "", "ﭮ", "", "", "", "ﲇ", "", "" };
 
 static const Rule rules[] = {
     /* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	*/
-    /* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
-    { "Gimp",      NULL,     NULL,           1 << 8,   0, 0, 0, -1 },
-    { "Alacritty", NULL,     NULL,           0,        0, 1, 0, -1 },
-    { NULL,        NULL,     "Event Tester", 0,        0, 0, 1, -1 },
-    { NULL,        "spterm", NULL,           SPTAG(0), 1, 1, 0, -1 },
-    { NULL,        "spcalc", NULL,           SPTAG(1), 1, 1, 0, -1 },
+
+    /* class                       instance     title      tags      mask isfloating isterminal noswallow monitor */
+    { "Microsoft Teams - Preview", NULL,        NULL,      1 << 8,   0, 0, 0, -1 },
+    { "Alacritty",                 NULL,        NULL,      0,        0, 1, 0, -1 },
+    { "Discord",                   "discord",   "discord", 1 << 2,   0, 0, 1, -1 },
+    { "firefoxdeveloperedition",   "Navigator", NULL,      1 << 1,   0, 0, 1, -1 },
+    { "Neomutt",                   NULL,        "neomutt", 1 << 4,   0, 0, 1, -1 },
+    { NULL,                        NULL,        "spterm",  SPTAG(0), 1, 1, 0, -1 },
+    { NULL,                        NULL,        "spbitw",  SPTAG(1), 1, 1, 0, -1 },
 };
 
 /* layout(s) */
@@ -133,7 +136,7 @@ static Key keys[] = {
     { MODKEY,             XK_q,                     killclient,     { 0 } },
     { MODKEY | ShiftMask, XK_q,                     quit,           { 0 }},
     { MODKEY,             XK_w,                     spawn,          SHCMD("$BROWSER") },
-    { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty -e neomutt") },
+    { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty --class neomutt --title Neomutt -e neomutt") },
     { MODKEY,             XK_r,                     spawn,          SHCMD("alacritty -e lf") },
     { MODKEY | ShiftMask, XK_r,                     spawn,          SHCMD("alacritty -e htop") },
     { MODKEY,             XK_t,                     setlayout,      { .v = &layouts[0] } },                                                                                                                       /* tile */
