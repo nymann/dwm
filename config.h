@@ -12,7 +12,6 @@ static const int smartgaps = 0;         /* 1 means no outer gap when there is on
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char* fonts[] = { "monospace:size=12:dpi=94" };
-static char dmenufont[] = "monospace:size=12:dpi=94";
 static char normbgcolor[] = "#323232";
 static char normbordercolor[] = "#595959";
 static char normfgcolor[] = "#bebebe";
@@ -29,17 +28,17 @@ typedef struct {
     const char* name;
     const void* cmd;
 } Sp;
-const char* spcmd1[] = { "alacritty", "--title", "spterm", "-d", "120", "68", NULL };
-const char* spcmd2[] = { "alacritty", "--title", "spbitw", "-d", "120", "34", NULL };
+const char* spcmd1[] = { "alacritty", "--title", "spterm", "-d", "120", "40", NULL };
+const char* spcmd2[] = { "spotify", NULL };
 static Sp scratchpads[] = {
     /* name          cmd  */
     { "spterm", spcmd1 },
-    { "spbitw", spcmd2 },
+    { "spspot", spcmd2 },
 };
 
 /* tagging */
 //static const char* tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char* tags[] = { "", "", "ﭮ", "", "", "", "ﲇ", "", "" };
+static const char* tags[] = { "", "", "ﭮ", "", "", "", "ﲇ", "", "" };
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -48,13 +47,14 @@ static const Rule rules[] = {
 	*/
 
     /* class                       instance     title      tags      mask isfloating isterminal noswallow monitor */
-    { "Microsoft Teams - Preview", NULL,        NULL,      1 << 8,   0, 0, 0, -1 },
+    { "Microsoft Teams - Preview", NULL,        NULL,      1 << 6,   0, 0, 0, 1 },
     { "Alacritty",                 NULL,        NULL,      0,        0, 1, 0, -1 },
-    { "Discord",                   "discord",   "discord", 1 << 2,   0, 0, 1, -1 },
+    { "discord",                   "discord",   NULL,      1 << 2,   0, 0, 1, 1 },
     { "firefoxdeveloperedition",   "Navigator", NULL,      1 << 1,   0, 0, 1, -1 },
-    { "Neomutt",                   NULL,        "neomutt", 1 << 4,   0, 0, 1, -1 },
-    { NULL,                        NULL,        "spterm",  SPTAG(0), 1, 1, 0, -1 },
-    { NULL,                        NULL,        "spbitw",  SPTAG(1), 1, 1, 0, -1 },
+    { NULL,                        "neomutt",   "Neomutt", 1 << 4,   0, 0, 1, 1 },
+    { NULL,                        NULL,        "spterm",  SPTAG(0), 1, 1, 0, 0 },
+    { "floatterm",                 NULL,        NULL,      0,        1, 1, 0, 0 },
+    { "Spotify",                   "spotify",   NULL,      1 << 8,   0, 1, 0, 1},
 };
 
 /* layout(s) */
@@ -103,8 +103,6 @@ static const Layout layouts[] = {
     }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char* dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char* termcmd[] = { "alacritty", NULL };
 
 #include "shiftview.c"
@@ -159,7 +157,8 @@ static Key keys[] = {
     { MODKEY,             XK_a,                     togglegaps,     { 0 } },
     { MODKEY | ShiftMask, XK_a,                     defaultgaps,    { 0 } },
     { MODKEY,             XK_s,                     togglesticky,   { 0 } },
-    { MODKEY,             XK_d,                     spawn,          { .v = dmenucmd } },
+    { MODKEY | ShiftMask, XK_s,                     spawn,          SHCMD("bwmenu --auto-lock 0 -C")},
+    { MODKEY,             XK_d,                     spawn,          SHCMD("rofi -modi drun -show drun -display-drun 'Run'")},
     { MODKEY,             XK_f,                     togglefullscr,  { 0 } },
     { MODKEY | ShiftMask, XK_f,                     setlayout,      { .v = &layouts[8] } },
     { MODKEY,             XK_g,                     shiftview,      { .i = -1 } },
