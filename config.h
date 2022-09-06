@@ -17,7 +17,7 @@ static char normbordercolor[] = "#595959";
 static char normfgcolor[] = "#bebebe";
 static char selfgcolor[] = "#f0f0f0";
 static char selbordercolor[] = "#BBD0D7";
-static char selbgcolor[] = "#009999";
+static char selbgcolor[] = "#bb9af7";
 static char* colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -38,7 +38,7 @@ static Sp scratchpads[] = {
 
 /* tagging */
 //static const char* tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char* tags[] = { "", "", "ﭮ", "", "", "", "ﲇ", "", "" };
+static const char* tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -47,14 +47,9 @@ static const Rule rules[] = {
 	*/
 
     /* class                       instance     title      tags      mask isfloating isterminal noswallow monitor */
-    { "Microsoft Teams - Preview", NULL,        NULL,      1 << 6,   0, 0, 0, 1 },
     { "Alacritty",                 NULL,        NULL,      0,        0, 1, 0, -1 },
-    { "discord",                   "discord",   NULL,      1 << 2,   0, 0, 1, 1 },
-    { "firefoxdeveloperedition",   "Navigator", NULL,      1 << 1,   0, 0, 1, -1 },
-    { NULL,                        "neomutt",   "Neomutt", 1 << 4,   0, 0, 1, 1 },
     { NULL,                        NULL,        "spterm",  SPTAG(0), 1, 1, 0, 0 },
     { "floatterm",                 NULL,        NULL,      0,        1, 1, 0, 0 },
-    { "Spotify",                   "spotify",   NULL,      1 << 8,   0, 1, 0, 1},
 };
 
 /* layout(s) */
@@ -134,8 +129,8 @@ static Key keys[] = {
     { MODKEY,             XK_q,                     killclient,     { 0 } },
     { MODKEY | ShiftMask, XK_q,                     quit,           { 0 }},
     { MODKEY,             XK_w,                     spawn,          SHCMD("$BROWSER") },
-    { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty --class neomutt --title Neomutt -e neomutt") },
-    { MODKEY,             XK_r,                     spawn,          SHCMD("alacritty -e lf") },
+    { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty -e lf") },
+    { MODKEY,             XK_r,                     spawn,          SHCMD("repos") },
     { MODKEY | ShiftMask, XK_r,                     spawn,          SHCMD("alacritty -e htop") },
     { MODKEY,             XK_t,                     setlayout,      { .v = &layouts[0] } },                                                                                                                       /* tile */
     { MODKEY | ShiftMask, XK_t,                     setlayout,      { .v = &layouts[1] } },                                                                                                                       /* bstack */
@@ -165,6 +160,7 @@ static Key keys[] = {
     { MODKEY | ShiftMask, XK_g,                     shifttag,       { .i = -1 } },
     { MODKEY,             XK_h,                     setmfact,       { .f = -0.05 } },
     { MODKEY,             XK_l,                     setmfact,       { .f = +0.05 } },
+    { MODKEY | ShiftMask, XK_l,                     spawn,          SHCMD("betterlockscreen -l") },
     { MODKEY,             XK_semicolon,             shiftview,      { .i = 1 } },
     { MODKEY | ShiftMask, XK_semicolon,             shifttag,       { .i = 1 } },
     { MODKEY,             XK_apostrophe,            togglescratch,  { .ui = 1 } },
@@ -173,6 +169,7 @@ static Key keys[] = {
     { MODKEY,             XK_z,                     incrgaps,       { .i = +3 } },
     { MODKEY,             XK_x,                     incrgaps,       { .i = -3 } },
     { MODKEY,             XK_b,                     togglebar,      { 0 } },
+    { MODKEY,             XK_n,                     spawn,          SHCMD("alacritty -e nvim ~/notes") },
     { MODKEY | ShiftMask, XK_n,                     spawn,          SHCMD("alacritty -e newsboat; pkill -RTMIN+6 dwmblocks") },
     { MODKEY,             XK_m,                     spawn,          SHCMD("alacritty -e ncmpcpp") },
     { MODKEY | ShiftMask, XK_m,                     spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
