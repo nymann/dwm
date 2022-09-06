@@ -17,7 +17,7 @@ static char normbordercolor[] = "#595959";
 static char normfgcolor[] = "#bebebe";
 static char selfgcolor[] = "#f0f0f0";
 static char selbordercolor[] = "#BBD0D7";
-static char selbgcolor[] = "#bb9af7";
+static char selbgcolor[] = "#7E2A75";
 static char* colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
