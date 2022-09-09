@@ -132,14 +132,14 @@ static Key keys[] = {
     { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty -e lf") },
     { MODKEY,             XK_r,                     spawn,          SHCMD("repos") },
     { MODKEY | ShiftMask, XK_r,                     spawn,          SHCMD("alacritty -e htop") },
-    { MODKEY,             XK_t,                     setlayout,      { .v = &layouts[0] } },                                                                                                                       /* tile */
-    { MODKEY | ShiftMask, XK_t,                     setlayout,      { .v = &layouts[1] } },                                                                                                                       /* bstack */
-    { MODKEY,             XK_y,                     setlayout,      { .v = &layouts[2] } },                                                                                                                       /* spiral */
-    { MODKEY | ShiftMask, XK_y,                     setlayout,      { .v = &layouts[3] } },                                                                                                                       /* dwindle */
-    { MODKEY,             XK_u,                     setlayout,      { .v = &layouts[4] } },                                                                                                                       /* deck */
-    { MODKEY | ShiftMask, XK_u,                     setlayout,      { .v = &layouts[5] } },                                                                                                                       /* monocle */
-    { MODKEY,             XK_i,                     setlayout,      { .v = &layouts[6] } },                                                                                                                       /* centeredmaster */
-    { MODKEY | ShiftMask, XK_i,                     setlayout,      { .v = &layouts[7] } },                                                                                                                       /* centeredfloatingmaster */
+    { MODKEY,             XK_t,                     setlayout,      { .v = &layouts[0] } }, // tile
+    { MODKEY | ShiftMask, XK_t,                     setlayout,      { .v = &layouts[1] } }, // bstack
+    { MODKEY,             XK_y,                     setlayout,      { .v = &layouts[2] } }, // spiral
+    { MODKEY | ShiftMask, XK_y,                     setlayout,      { .v = &layouts[3] } }, // dwindle
+    { MODKEY,             XK_u,                     setlayout,      { .v = &layouts[4] } }, // deck
+    { MODKEY | ShiftMask, XK_u,                     setlayout,      { .v = &layouts[5] } }, // monocle
+    { MODKEY,             XK_i,                     setlayout,      { .v = &layouts[6] } }, // centeredmaster
+    { MODKEY | ShiftMask, XK_i,                     setlayout,      { .v = &layouts[7] } }, // centeredfloatingmaster
     { MODKEY,             XK_o,                     incnmaster,     { .i = +1 } },
     { MODKEY | ShiftMask, XK_o,                     incnmaster,     { .i = -1 } },
     { MODKEY,             XK_p,                     spawn,          SHCMD("mpc toggle") },
@@ -152,7 +152,6 @@ static Key keys[] = {
     { MODKEY,             XK_a,                     togglegaps,     { 0 } },
     { MODKEY | ShiftMask, XK_a,                     defaultgaps,    { 0 } },
     { MODKEY,             XK_s,                     togglesticky,   { 0 } },
-    { MODKEY | ShiftMask, XK_s,                     spawn,          SHCMD("bwmenu --auto-lock 0 -C")},
     { MODKEY,             XK_d,                     spawn,          SHCMD("rofi -modi drun -show drun -display-drun 'Run'")},
     { MODKEY,             XK_f,                     togglefullscr,  { 0 } },
     { MODKEY | ShiftMask, XK_f,                     setlayout,      { .v = &layouts[8] } },
@@ -169,10 +168,9 @@ static Key keys[] = {
     { MODKEY,             XK_z,                     incrgaps,       { .i = +3 } },
     { MODKEY,             XK_x,                     incrgaps,       { .i = -3 } },
     { MODKEY,             XK_b,                     togglebar,      { 0 } },
-    { MODKEY,             XK_n,                     spawn,          SHCMD("alacritty -e nvim ~/notes.md") },
-    { MODKEY | ShiftMask, XK_n,                     spawn,          SHCMD("alacritty -e newsboat; pkill -RTMIN+6 dwmblocks") },
+    { MODKEY,             XK_n,                     spawn,          SHCMD("alacritty -e nvim ~/docs/todo/work.md") },
+    { MODKEY | ShiftMask, XK_n,                     spawn,          SHCMD("alacritty -e nvim ~/docs/todo/personal.md") },
     { MODKEY,             XK_m,                     spawn,          SHCMD("alacritty -e ncmpcpp") },
-    { MODKEY | ShiftMask, XK_m,                     spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
     { MODKEY,             XK_comma,                 spawn,          SHCMD("mpc prev") },
     { MODKEY | ShiftMask, XK_comma,                 spawn,          SHCMD("mpc seek 0%") },
     { MODKEY,             XK_period,                spawn,          SHCMD("mpc next") },
@@ -187,12 +185,15 @@ static Key keys[] = {
     { MODKEY | ShiftMask, XK_Page_Down,             shifttag,       { .i = +1 } },
     { MODKEY,             XK_Insert,                spawn,          SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
     { MODKEY,             XK_F1,                    spawn,          SHCMD("keyboard") },
+    { MODKEY,             XK_F2,                    spawn,          SHCMD("pickie") },
+    { MODKEY,             XK_F3,                    spawn,          SHCMD("bt-connect '94:DB:56:7A:99:5A'") },
+    { MODKEY,             XK_F4,                    spawn,          SHCMD("bt-connect '50:C2:ED:EC:CF:9B'") },
     { MODKEY,             XK_F11,                   spawn,          SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
     { MODKEY,             XK_F12,                   xrdb,           { .v = NULL } },
     { MODKEY,             XK_space,                 zoom,           { 0 } },
     { MODKEY | ShiftMask, XK_space,                 togglefloating, { 0 } },
-    { 0,                  XK_Print,                 spawn,          SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
-    { ShiftMask,          XK_Print,                 spawn,          SHCMD("maimpick") },
+    { 0,                  XK_Print,                 spawn,          SHCMD("selected_area_shot") },
+    { ShiftMask,          XK_Print,                 spawn,          SHCMD("current_window_shot") },
     { 0,                  XF86XK_AudioMute,         spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
     { 0,                  XF86XK_AudioRaiseVolume,  spawn,          SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
     { 0,                  XF86XK_AudioLowerVolume,  spawn,          SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
