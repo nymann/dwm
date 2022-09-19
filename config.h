@@ -28,12 +28,10 @@ typedef struct {
     const char* name;
     const void* cmd;
 } Sp;
-const char* spcmd1[] = { "alacritty", "--title", "spterm", "-d", "120", "40", NULL };
-const char* spcmd2[] = { "spotify", NULL };
+const char* spcmd1[] = { "alacritty", "--title", "spterm", NULL };
 static Sp scratchpads[] = {
     /* name          cmd  */
     { "spterm", spcmd1 },
-    { "spspot", spcmd2 },
 };
 
 /* tagging */
@@ -129,6 +127,7 @@ static Key keys[] = {
     { MODKEY,             XK_q,                     killclient,     { 0 } },
     { MODKEY | ShiftMask, XK_q,                     quit,           { 0 }},
     { MODKEY,             XK_w,                     spawn,          SHCMD("$BROWSER") },
+    { MODKEY | ShiftMask, XK_w,                     togglescratch,  { .ui = 1 } },
     { MODKEY,             XK_e,                     spawn,          SHCMD("alacritty -e lf") },
     { MODKEY,             XK_r,                     spawn,          SHCMD("repos") },
     { MODKEY | ShiftMask, XK_r,                     spawn,          SHCMD("alacritty -e htop") },
@@ -162,7 +161,6 @@ static Key keys[] = {
     { MODKEY | ShiftMask, XK_l,                     spawn,          SHCMD("betterlockscreen -l") },
     { MODKEY,             XK_semicolon,             shiftview,      { .i = 1 } },
     { MODKEY | ShiftMask, XK_semicolon,             shifttag,       { .i = 1 } },
-    { MODKEY,             XK_apostrophe,            togglescratch,  { .ui = 1 } },
     { MODKEY,             XK_Return,                spawn,          { .v = termcmd } },
     { MODKEY | ShiftMask, XK_Return,                togglescratch,  { .ui = 0 } },
     { MODKEY,             XK_z,                     incrgaps,       { .i = +3 } },
