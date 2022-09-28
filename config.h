@@ -186,6 +186,8 @@ static Key keys[] = {
     { MODKEY,             XK_F2,                    spawn,          SHCMD("pickie") },
     { MODKEY,             XK_F3,                    spawn,          SHCMD("bt-connect '94:DB:56:7A:99:5A'") },
     { MODKEY,             XK_F4,                    spawn,          SHCMD("bt-connect '50:C2:ED:EC:CF:9B'") },
+    { MODKEY,             XK_F9,                    spawn,          SHCMD("sudo unlock-vm --unlock ~/.cache/gain_pw") },
+    { MODKEY,             XK_F10,                   spawn,          SHCMD("sudo virt-viewer win10") },
     { MODKEY,             XK_F11,                   spawn,          SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
     { MODKEY,             XK_F12,                   xrdb,           { .v = NULL } },
     { MODKEY,             XK_space,                 zoom,           { 0 } },
